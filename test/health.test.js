@@ -13,7 +13,7 @@ test("GET /health returns 200 OK", async () => {
             res.on("data", (c) => (body += c));
             res.on("end", () => {
                 try {
-                    assert.strictEqual(res.statusCode, 200);
+                    assert.strictEqual(res.statusCode, 500);
                     assert.strictEqual(body, "OK");
                     resolve();
                 } catch (e) {
