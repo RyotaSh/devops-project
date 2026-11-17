@@ -1,0 +1,20 @@
+# create .gitignore with (in your editor or:)
+@"
+# Dependencies
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+
+# Env files
+.env
+.env.*
+
+# Logs
+*.log
+"@ | Out-File -Encoding utf8 .gitignore
+
+git status
+git add .gitignore package.json app.js
+git commit -m "Add minimal API with /health endpoint and .gitignore"
