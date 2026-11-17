@@ -1,18 +1,24 @@
 name: CI
+
 on:
-push:
-branches: [main]
-pull_request:
+  push:
+    branches: [main]
+  pull_request:
+
 jobs:
-build-test:
-runs-on: ubuntu-latest
-steps:
-  - uses: actions/checkout@v4
-  - name: Install
-run: npm ci
-  - name: Lint
-run: npm run lint
-  - name: Tests
-run: npm test
-  - name: Build image
-run: docker build -t myapp:${{ github.sha }} .
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tests
+        run: npm test
+
+      - name: Build image
+        run: docker build -t myapp:${{ github.sha }} .
