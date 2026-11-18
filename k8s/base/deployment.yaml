@@ -24,3 +24,33 @@ spec:
           image: ghcr.io/ryotash/devops-project:5c777c39a6d8de96225c2712399fdf7ab200033a
           ports:
             - containerPort: 3000
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: myapp-config
+                  key: APP_ENV
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: myapp-secret
+                  key: API_KEY
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
