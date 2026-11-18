@@ -1,0 +1,22 @@
+apiVersion: audit.k8s.io/v1
+kind: Policy
+omitStages:
+  - RequestReceived
+rules:
+  # on ne logge pas le bruit des composants internes
+  - level: None
+    users: ["system:kube-proxy", "system:kube-scheduler", "system:kube-controller-manager"]
+  - level: None
+    verbs: ["get", "list", "watch"]
+  # on ne logge jamais le contenu des secrets
+  - level: Metadata
+    resources:
+      - group: ""
+        resources: ["secrets", "configmaps"]
+  # changements sur les workloads : on garde la requete
+  - level: Request
+    resources:
+      - group: "apps"
+        resources: ["deployments", "replicasets"]
+      - group: "rbac.authorization.k8s.io"
+  - level: Metadata
