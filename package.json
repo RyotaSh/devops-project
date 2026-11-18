@@ -4,9 +4,15 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "echo \"no tests yet\" && exit 0"
+    "test": "node --test",
+    "lint": "eslint ."
   },
   "dependencies": {
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.15.0",
+    "globals": "^17.14.0"
   }
 }
