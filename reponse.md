@@ -13,3 +13,9 @@ An image is a read-only template that contains the application code, runtime, sy
 ## Question 3: Compared to non-slim base images, what changes in the image size?
 
 Using node:20-alpine yields a significant size reduction. The standard node:20 (based on Debian) image can reach over 300MB or even 1.1GB . In contrast, the Alpine version is typically only 40–60MB, or approximately 130MB after including your application dependencies . The main reason is that Alpine uses musl libc and BusyBox, and the base system itself is only about 5MB, whereas Debian's base footprint exceeds 100MB .
+
+## Question 4: Why tag the image with the commit SHA rather than latest?
+Tagging with the commit SHA guarantees absolute traceability and reproducibility. If a production issue occurs, you can look at the exact version of the code running and trace it back to the specific commit in Git. The latest tag is mutable, meaning it gets overwritten every time you push, making it impossible to know which version of the code is actually running or to roll back to a stable previous state.
+
+## Question 5: What does "fail fast" mean in a pipeline?
+"Fail fast" means structuring the CI/CD pipeline to run the quickest and most critical checks (like linting and unit tests) before running slower steps (like building a Docker image or deploying). The goal is to catch errors immediately ,ideally within seconds so developers get feedback right away and don't waste time or computing resources waiting for a 5-minute build to finish only to discover a typo in the code.
