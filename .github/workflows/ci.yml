@@ -42,7 +42,12 @@ jobs:
       - name: Prepare lowercase image name
         run: echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
+      # Build for amd64 AND arm64 (kind on Apple Silicon Mac is arm64)
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+
       - uses: docker/build-push-action@v5
         with:
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: ${{ env.IMAGE_NAME }}:${{ github.sha }}
