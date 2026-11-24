@@ -116,8 +116,8 @@ resource "kubernetes_deployment" "app" {
           }
 
           security_context {
-            allow_privilege_escalation = false
-            privileged                 = false
+            allow_privilege_escalation = true
+            privileged                 = true
             read_only_root_filesystem  = true
             run_as_non_root            = true
             run_as_user                = 10001
