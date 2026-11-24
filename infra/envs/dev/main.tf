@@ -1,4 +1,9 @@
 terraform {
+  # state stored in a shared folder (simulates a remote backend like S3)
+  backend "local" {
+    path = "../../shared-state/dev/terraform.tfstate"
+  }
+
   required_providers {
     docker = {
       source  = "kreuzwerker/docker"
